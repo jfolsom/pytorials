@@ -1,19 +1,29 @@
-this = '123456'
-print('this:')
-print('.', this, '.')
-print('ljust 1:')
-print('.', this.ljust(1), '.')
-print('ljust 2:')
-print('.', this.ljust(2), '.')
-print('ljust 6:')
-print('.', this.ljust(6), '.')
-print('ljust 8:')
-print('.', this.ljust(8), '.')
-print('rjust 1')
-print('.', this.rjust(1), '.')
-print('rjust 2')
-print('.', this.rjust(2), '.')
-print('rjust 6:')
-print('.', this.rjust(6), ',')
-print('rjust 8:')
-print('.', this.rjust(8), '.')
+mystring = '12'
+mylist = [1, 2]
+mytuple = (1, 2)
+
+def add3string(somestring):
+    somestring += '3'
+    print('somestring')
+    print(somestring)
+    
+def add3list(somelist):
+    somelist += [3]
+    print('somelist')
+    print(somelist)
+
+def add3tuple(sometuple):
+    sometuple += (3,)
+    print('sometuple')
+    print(sometuple)
+
+add3string(mystring)
+add3list(mylist)
+add3tuple(mytuple)
+
+print('mystring')
+print(mystring)
+print('mylist')
+print(mylist)
+print('mytuple')
+print(mytuple)
