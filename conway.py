@@ -60,6 +60,6 @@ while True:
                 nextcells[x][y] = '#'
             else:
                 nextcells[x][y] = ' '
-    time.sleep(0.5)
+    time.sleep(0.05)
 
 
