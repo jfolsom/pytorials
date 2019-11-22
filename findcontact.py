@@ -5,26 +5,20 @@ import pyperclip
 
 text = pyperclip.paste()
 
-pnumberregex = re.compile(r'''
-                                \d{3}           # followed by 3 digits
-                                (\s|\.|-)?      # optional separator
-                                \d{3}           # followed by 3 digits
-                                (\s|\.|-)?      # optional separator
-                                \d{4}           # followed by 4 digits
-                                (\s*(ext|x|x\.|ext\.)\s*\d{2,5})?  # optional extension
-                             ''', re.VERBOSE)
+pnumberregex = re.compile(r''' \d{3}                #three digits
+                           ''', re.VERBOSE)
 emailregex = re.compile(r'\w*@\w*\.\w{3}')
 
-numbertuple = pnumberregex.findall(text)
-print('numbertuple')
-print(numbertuple)
+numberlist = pnumberregex.findall(text)
+print('numberlist')
+print(numberlist)
 emaillist = emailregex.findall(text)
 
-numberlist = []
+# numberlist = []
 
 
-for i in numbertuple:
-    numberlist.append(i[0])
+# for i in numbertuple:
+    # numberlist.append(i[0])
 
 # for i in emailtuple:
     # emaillist.append(i[1])
