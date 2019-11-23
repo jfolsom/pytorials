@@ -1,25 +1,35 @@
-#! python - Search clipboard text for phone numbers and emails.
+#! python3
+# findcontact.py - Search clipboard text for phone numbers and emails.
 
 import re
 import pyperclip
 
 text = pyperclip.paste()
 
-pnumberregex = re.compile(r''' \d{3}                #three digits
-                           ''', re.VERBOSE)
+# Create regex expression
+pnumberregex = re.compile(r'''( 
+                                \(?(\d{3})\)?[\s\-\.]?   # 3 numbers, possibly in parens,
+                                                      # possibly a space after
+                               (\d{3})                  # followed by three numbers   
+                               [\-\.\s]?              # possible seperator
+                               (\d{4})                  # last four numbers
+                               \s*(?:extension|x|e|ext)?\s?\.?(\d{2,5})? # extension
+                           )''', re.VERBOSE)
 emailregex = re.compile(r'\w*@\w*\.\w{3}')
 
-numberlist = pnumberregex.findall(text)
-print('numberlist')
-print(numberlist)
+numbertuple = pnumberregex.findall(text)
+# print('numbertuple')
+# print(numbertuple)
 emaillist = emailregex.findall(text)
 
-# numberlist = []
+numberlist = []
 
 
-# for i in numbertuple:
-    # numberlist.append(i[0])
-
+for i in numbertuple:
+    thisnumber = i[1] + '.' + i[2] + '.' + i[3]
+    if i[4] != '':
+        thisnumber += ('x.' + i[4])
+    numberlist.append(thisnumber)
 # for i in emailtuple:
     # emaillist.append(i[1])
 
@@ -36,3 +46,4 @@ for i in emaillist:
     export += '\n'
 
 print(export)
+
