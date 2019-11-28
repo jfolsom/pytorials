@@ -1,43 +1,39 @@
 #! Python3
+# Kilroy a file
 
+import os
+import sys
 import re
 
-text = """
-Sample      PSF
-B-1         23452
-B-2         800
-B-3         1234569
-"""
+target = sys.argv[1]
+endoflineregex = re.compile(r'\n$|\r$|\r\n$')
 
-print('Original text:')
-print(text)
+if not os.path.isfile(target):
+    print('Pass a valid file path as an argument')
+    sys.exit()
+    
+myfile = open(target)
+lines = myfile.readlines()
+myfile.close()
 
-thousandsregex = re.compile(r'\s(\d{1,3})(\d{3})?(\d{3})?(\d{3})\s')
 
-fourplusdigits = thousandsregex.findall(text)
+# If the last line doesn't end with newline, add one.
+#   First, what are the normal line endings for this file, just in case.
+firstlineendingmo = endoflineregex.search(lines[0])
+if firstlineendingmo == None:
+    lineend = '\n'
+else:
+    lineend = firstlineendingmo.group()
 
-print('fourplusdigits')
-print(fourplusdigits)
-
-for numbertuple in fourplusdigits:
-    print('numbertuple')
-    print(numbertuple)
-    numberfound = ''
-    formattednumber = ''
-    for group in numbertuple:
-        numberfound += group
-        formattednumber += group
-        if (group != numbertuple[-1]) and group != '':
-            formattednumber +=','
-    start = text.index(numberfound)
-    print('start')
-    print(start)
-    print('numberfound')
-    print(numberfound)
-    print('formattednumber')
-    print(formattednumber)
-    print('---nextiter---')
-    text = text[0:start] + formattednumber +text[(start+len(numberfound)):len(text)]
-
-print('Finished text')
-print(text)
+lastlinemo = endoflineregex.search(lines[-1])
+myfile = open(target, 'a')
+if lastlinemo == None:
+        myfile.write(lineend)
+    
+myfile.write('a')
+myfile.write('Killroy was here')
+myfile.close()
+    
+    
+    
+    
