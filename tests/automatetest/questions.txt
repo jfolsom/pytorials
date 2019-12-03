@@ -7,9 +7,7 @@
 # List at three to ten wrong answers, begin with "WA"
 # Signify non multiple choice, direct entry question by beginning first and
 #    only answer with "AA "
-
-
-
+# Name file questions.txt and place in the folder for the test
 SECTION, Introduction
 
 QQ What is a thing this book is meant to teach you?
@@ -22,21 +20,21 @@ WA generators
 WA game design
 
 QQ What is programming?
-AA the act of entering instructions for the computer to perform
+CA the act of entering instructions for the computer to perform
 WA modifying the computer's base operating strategy
 WA building a data environment to work in
 WA sorting/writing/reading data
 WA configuring digital operation strategies
 
 QQ What level of mathematical experise is required to be a programmer?
-AA not much
+CA not much
 WA advanced algebra
 WA a talent for geometrical and algebraic thinkinig
 WA calculus 101
 WA a firm grasp of set theory
 
 QQ How do you check whether your system is 64-bit or 32-bit for Windows?
-AA start>Control Panel>System
+CA start>Control Panel>System
 WA win-R to run IP config; google the resulting IP
 WA start>Operating System>Configuring
 WA google your computer's model number.

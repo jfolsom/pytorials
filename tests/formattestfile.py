@@ -15,11 +15,16 @@ def validatefile(fileobject):
     # run some checks to find out if that a fileobject matches a correctly
     # formated test file
     filestring = fileobject.read()
-    
+    print('filestring from validatefile module')
+    print(filestring)
     # Abort if the file is  does not match this heuristic for plaintext.
     hastextregex = re.compile(r'\s\w{3,15}\s')
     hastextmo = hastextregex.search(filestring)
     if hastextmo == None:
+        print('hastextmo:')
+        print(hastextmo)
+        print('hastextmo.group():')
+        print(hastextmo.group())
         print('Input file does not appear to be plaintext, because it' +
               'doesn\'t have a word between three and fifteen characters' +
               'surrounded by spaces; aborting.')
@@ -41,8 +46,8 @@ def validatefile(fileobject):
         sys.exit()
     
     # Abort if the file doen't contain a properly formatted section header.
-    val_file_sectionregex = re.compile(r'(?:\n|\r\n|\r)SECTION, ')
-    if val_section_regex.search(filestring) == None:
+    val_sectionregex = re.compile(r'(?:\n|\r\n|\r)SECTION, ')
+    if val_sectionregex.search(filestring) == None:
         print('Input file has no lines starting with CA; aboring.')
         time.sleep(2)
         sys.exit()
@@ -54,15 +59,15 @@ def validatefile(fileobject):
         sys.exit()
     
     # If there are duplicate section headers, abort.
-    val_sectionregex = re.compile(r'SECTION,\w.*(?:\n|\r\n|\r){2}')
-    foundbreaks = val_sectionregex.findall(filestring)
+    sectiontitlesregex = re.compile(r'SECTION,\w.*(?:\n|\r\n|\r){2}')
+    foundbreaks = sectiontitlesregex.findall(filestring)
     if len(foundbreaks) != len(set(foundbreaks)):
         print('You appear to have duplicate section names; aborting.')
         time.sleep(2)
         sys.exit
 
 
-def stringtosections(longstring, listofsectionbreaks)
+def stringtosections(longstring, listofsectionbreaks):
     # Search long string for a list of section breaks.  List of
     # breaks will frequently come from a regex.findall(longstring).  Return the
     # a list of strings containing each sections contents.  DOES NOT keep
@@ -80,13 +85,15 @@ def stringtosections(longstring, listofsectionbreaks)
         # Add the section to the list, then chop off the first section and
         # the sectionbreak from the longstring.
         listofsections.append(stringremainder[:startcutat])
-        stringremainder = stringremainder[endcutat:])
+        stringremainder = stringremainder[endcutat:]
     return listofsections
         
         
 # The main sequence begins here.
 # First, check the provided filepath and make sure it points at a valid file.
 userformatpath = sys.argv[1]
+print('userformatpath:')
+print(userformatpath)
 if not os.path.isfile(userformatpath):
     print('''Enter a valid file path e.g. "questions.txt" or
     "C:\\users\\cerit\\tests\\automatteste\\questions.txt" as a paramater
@@ -97,18 +104,25 @@ if not os.path.isfile(userformatpath):
 
 # Now, open it and assign its contents to a string variable.
 userfileobject = open(userformatpath)
+print('userfileobject:')
+print(userfileobject)
 validatefile(userfileobject)
 print('User input file validation passed (but the process isn\'t\n' +
        'all that stringent)')
 time.sleep(1)
-userfilestring = read(userfileobject)
+userfilestring = userfileobject.read()
+print('userfilestring')
+print(userfilestring)
 
 # Split that string into a list of sections
 sectionregex = re.compile(r'SECTION,\w.*(?:\n|\r\n|\r){2}')
 foundbreaks = sectionregex.findall(userfilestring)
+print('foundbreaks')
+print(foundbreaks)
 sections = stringtosections(userfilestring, foundbreaks)
+print('sections:')
 pprint.pprint(sections)
-# Had to stop codeing here, havent't tested.  Next step, test program to here.
+userfileobject.close()
 
     
     
