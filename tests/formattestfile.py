@@ -11,12 +11,9 @@ import pprint
 
 
 
-def validatefile(fileobject):
-    # run some checks to find out if that a fileobject matches a correctly
+def validatefilestring(filestring):
+    # run some checks to find out if that a string matches a correctly
     # formated test file
-    filestring = fileobject.read()
-    print('filestring from validatefile module')
-    print(filestring)
     # Abort if the file is  does not match this heuristic for plaintext.
     hastextregex = re.compile(r'\s\w{3,15}\s')
     hastextmo = hastextregex.search(filestring)
@@ -46,7 +43,7 @@ def validatefile(fileobject):
         sys.exit()
     
     # Abort if the file doen't contain a properly formatted section header.
-    val_sectionregex = re.compile(r'(?:\n|\r\n|\r)SECTION, ')
+    val_sectionregex = re.compile(r'(?:\n|\r|\r\n)SECTION,\s.*(?:\n|\r|\r\n)')
     if val_sectionregex.search(filestring) == None:
         print('Input file has no lines starting with CA; aboring.')
         time.sleep(2)
@@ -59,7 +56,7 @@ def validatefile(fileobject):
         sys.exit()
     
     # If there are duplicate section headers, abort.
-    sectiontitlesregex = re.compile(r'SECTION,\w.*(?:\n|\r\n|\r){2}')
+    sectiontitlesregex = re.compile(r'^"SECTION,\w.*(?:\n|\r\n|\r){2}')
     foundbreaks = sectiontitlesregex.findall(filestring)
     if len(foundbreaks) != len(set(foundbreaks)):
         print('You appear to have duplicate section names; aborting.')
@@ -74,18 +71,19 @@ def stringtosections(longstring, listofsectionbreaks):
     # section names.
     # v0.0.1 JF 2019-11-28 Not yet checked.
     stringremainder = longstring
-    listofsections = ['']
-    for sectionbreak in listofsectionbreaks:
-        # For each substring in the list provided, first, find where it starts and
-        # mark that position.
-        startcutat = stringremainder.index(sectionbreak)
-        # Then figure out where the substring stops 
-        lengthofcutis = len(sectionbreak)
-        endcutat = startcutat + lengthofcutis
-        # Add the section to the list, then chop off the first section and
-        # the sectionbreak from the longstring.
-        listofsections.append(stringremainder[:startcutat])
-        stringremainder = stringremainder[endcutat:]
+    listofsections = []
+    for i in range(len(listofsectionbreaks)-1):
+        # For each sectionbreak provided, except the last:
+        # Mark the postion of this seciton break and the next section break
+        thissectionbreak = listofsectionbreaks[i]
+        nextsectionbreak = listofsectionbreaks[i+1]
+        sectionstart = stringremainder.index(thissectionbreak)
+        sectionend = stringremainder.index(nextsectionbreak)
+        # Add the section to the list, then chop it off the string
+        listofsections.append(stringremainder[sectionstart:sectionend])
+        stringremainder = stringremainder[sectionend:]
+    # Add the reminder as the last section
+    listofsections.append(stringremainder)
     return listofsections
         
         
@@ -106,22 +104,24 @@ if not os.path.isfile(userformatpath):
 userfileobject = open(userformatpath)
 print('userfileobject:')
 print(userfileobject)
-validatefile(userfileobject)
-print('User input file validation passed (but the process isn\'t\n' +
-       'all that stringent)')
-time.sleep(1)
 userfilestring = userfileobject.read()
 print('userfilestring')
 print(userfilestring)
+validatefilestring(userfilestring)
+print('User input file validation passed (but the process isn\'t\n' +
+       'all that stringent)')
+time.sleep(1)
 
 # Split that string into a list of sections
-sectionregex = re.compile(r'SECTION,\w.*(?:\n|\r\n|\r){2}')
+sectionregex = re.compile(r'(?:\n|\r|\r\n)SECTION,\s(.*)(?:\n|\r|\r\n)')
 foundbreaks = sectionregex.findall(userfilestring)
 print('foundbreaks')
 print(foundbreaks)
 sections = stringtosections(userfilestring, foundbreaks)
 print('sections:')
-pprint.pprint(sections)
+for i in range(len(sections)):
+    print(i)
+    print(sections[i])
 userfileobject.close()
 
     

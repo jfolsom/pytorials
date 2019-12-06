@@ -2,7 +2,8 @@ def do_twice(f, myvalue):
     f(myvalue)
     f(myvalue)
 
-def print_spam():
-    print('spam')
+def print_twice(arg):
+    print(arg)
+    print(arg)
 
-do_twice(print_spam(), 'spamyspam')
+do_twice(print_twice, 'spamyspam')
