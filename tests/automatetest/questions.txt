@@ -1,0 +1,73 @@
+# Put a blank line between section and question/answer, and between each question/answer
+# Begin each section with "SECTION, " and then sectionname
+# Begin each question with "QQ "
+# Do not put a line break between question and answer
+# Each question and answer must be one line, less than 80 character
+# List up to three correct answers, begin with "CA "
+# List at three to ten wrong answers, begin with "WA"
+# Signify non multiple choice, direct entry question by beginning first and
+#    only answer with "AA "
+# Name file questions.txt and place in the folder for the test
+SECTION, Introduction
+
+QQ What is a thing this book is meant to teach you?
+CA organize file structure
+CA fill out online forms
+CA download files from a website
+WA modify binary game files
+WA object-oriented programming
+WA generators
+WA game design
+
+QQ What is programming?
+CA the act of entering instructions for the computer to perform
+WA modifying the computer's base operating strategy
+WA building a data environment to work in
+WA sorting/writing/reading data
+WA configuring digital operation strategies
+
+QQ What level of mathematical experise is required to be a programmer?
+CA not much
+WA advanced algebra
+WA a talent for geometrical and algebraic thinkinig
+WA calculus 101
+WA a firm grasp of set theory
+
+QQ How do you check whether your system is 64-bit or 32-bit for Windows?
+CA start>Control Panel>System
+WA win-R to run IP config; google the resulting IP
+WA start>Operating System>Configuring
+WA google your computer's model number.
+WA look for a label on the box
+
+SECTION, Flow Control
+
+QQ Which command correctly assigns a boolean value to an variable?
+CA myvalue = False
+CA myvalue = True
+WA myvalue = false
+WA myvalue == False
+WA myvalue == false
+WA myvalue = true
+WA myvalue == boolean.true()
+WA true = myvalue
+
+QQ Enter the correct operator for greater than or equal to.
+CA >=
+WA =>
+WA !>
+WA <=
+WA =<
+WA >
+WA <
+
+QQ What does a comparison operator return?
+CA a boolean value
+WA a string
+WA the found value
+WA integer 0 or integer 1
+WA the value or None
+WA floating point number
+WA list
+WA tuple
+WA tuple
