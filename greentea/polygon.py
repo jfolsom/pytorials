@@ -85,7 +85,6 @@ def circle(t, r):
 
 if __name__ == '__main__':
     world = TurtleWorld()    
-
     bob = Turtle()
     bob.delay = 0.001
 
