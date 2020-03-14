@@ -36,6 +36,18 @@ class Grades(object):
         except KeyError:
             raise ValueError('Student not in grade book')
 
+    def avg_grade(self, student):
+        g = 0
+        tot = 0.0
+        for grade in self.grades[student.getIdNum()]:
+            g += 1
+            tot += grade
+        try:
+            avg = tot/g
+        except ZeroDivisionError:
+            avg = 'No Grades Yet'
+        return avg
+
     def allStudents(self):
         """Return a alist of a all the students in the grade book"""
         if not self.isSorted:
@@ -43,8 +55,10 @@ class Grades(object):
             self.isSorted = True
         return self.students[:]
 
+
 class Student(object):
     nextIdNum = 0
+
     def __init__(self, name):
         self.name = name
         self.IdNum = Student.nextIdNum
@@ -55,15 +69,22 @@ class Student(object):
 
     def setname(self, name):
         self.name = name
-    
+
     def getIdNum(self):
         return self.IdNum
-    
+
     def __lt__(self, other):
         return self.name < other.name
-    
-    def __str__:
-    
+
+    def __str__(self):
+        return self.name + ', IdNum: ' + str(self.IdNum)
+
+def printgrade(Grades_obj):
+    for Student in Grades_obj.allStudents():
+        print(Student, ': ', Grades_obj.getgrades(Student))
+        print(Student, "'s avg is ", Grades_obj.avg_grade(Student), sep='')
+
+
 testclass = Grades()
 alf = Student('Alf')
 benny = Student('Benny')
